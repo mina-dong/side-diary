@@ -1,5 +1,6 @@
 package com.sidediary.side_diary.service;
 
+import com.sidediary.side_diary.dto.LoginRequest;
 import com.sidediary.side_diary.dto.RegisterRequest;
 import com.sidediary.side_diary.entity.User;
 import com.sidediary.side_diary.repository.UserRepository;
@@ -18,7 +19,6 @@ public class UserService {
         if (userRepository.findByEmail(request.getEmail()).isPresent()){
             throw new IllegalArgumentException("이미 존재하는 이메일");
         }
-
         User user = User.builder()
                 .email(request.getEmail())
                 .password(request.getPassword()) // 나중에 암호화
@@ -30,5 +30,13 @@ public class UserService {
     }
     public Optional<User> getUserByEmail(String email){
         return userRepository.findByEmail(email);
+    }
+
+    public void loginUser (LoginRequest request){
+        User user = userRepository.findByEmail(request.getEmail())
+                .orElseThrow(()-> new IllegalArgumentException("존재하지 않는 이메일"));
+        if (!user.getPassword().equals(request.getPassword())){
+            throw new IllegalArgumentException("비밀번호 불일치");
+        }
     }
 }

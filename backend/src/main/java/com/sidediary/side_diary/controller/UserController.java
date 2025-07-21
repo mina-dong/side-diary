@@ -1,5 +1,6 @@
 package com.sidediary.side_diary.controller;
 
+import com.sidediary.side_diary.dto.LoginRequest;
 import com.sidediary.side_diary.dto.RegisterRequest;
 import com.sidediary.side_diary.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -22,5 +23,9 @@ public class UserController {
         return ResponseEntity.ok("회원가입 성공");
     }
     //로그인
-
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody LoginRequest request){
+        userService.loginUser(request);
+        return  ResponseEntity.ok("로그인 성공");
+    }
 }

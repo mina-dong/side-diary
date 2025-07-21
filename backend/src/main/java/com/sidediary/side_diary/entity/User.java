@@ -32,7 +32,7 @@ public class User {
     private LocalDateTime createAt;
 
     @PrePersist
-    public void prePresist(){
+    public void prePersist(){
         this.createAt = LocalDateTime.now();
     }
 }

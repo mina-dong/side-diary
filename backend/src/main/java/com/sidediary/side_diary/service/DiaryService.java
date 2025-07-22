@@ -60,6 +60,23 @@ public class DiaryService {
         }
     }
 
+    //수정
+    public DiaryResponse editDairy(Long id, DiaryRequest request, Long currentUserId) {
+        Diary diary = diaryRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("아이디를 찾을 수 없습니다."));
+
+        if (diary.getUser().getId() != currentUserId) {
+            throw new IllegalArgumentException("수정 권한이 없습니다.");
+        }
+        diary.setTitle(request.getTitle());
+        diary.setContent(request.getContent());
+
+        Diary updatedDiary = diaryRepository.save(diary);
+
+        return convertToResponseDto(updatedDiary);  //수정 서비스랑 콘트롤러수저하기
+    }
+
+    //dto -> diary 엔티티 변형
     private DiaryResponse convertToResponseDto(Diary diary) {
         if (diary == null) {
             return null;

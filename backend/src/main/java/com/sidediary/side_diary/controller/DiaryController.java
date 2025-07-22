@@ -2,8 +2,9 @@ package com.sidediary.side_diary.controller;
 
 import com.sidediary.side_diary.dto.DiaryRequest;
 import com.sidediary.side_diary.dto.DiaryResponse;
-import com.sidediary.side_diary.entity.Diary;
+
 import com.sidediary.side_diary.service.DiaryService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,6 +39,21 @@ public class DiaryController {
         return ResponseEntity.ok(diaryResponse);
     }
     //일기 수정
+    @PutMapping("/{id}")
+    public ResponseEntity<DiaryResponse> editDiary(@PathVariable Long id, @RequestBody DiaryRequest request, HttpSession session){
+        Long currentUserId = (Long) session.getAttribute("LoggedInUserId");
+        if (currentUserId == null){
+            throw new IllegalArgumentException("로그인 필요");
+        }
+
+        DiaryResponse updatedDiaryResponse = diaryService.editDairy(id, request, currentUserId);
+
+        return ResponseEntity.ok(updatedDiaryResponse);
+    }
 
     //일기 삭제
+//    @DeleteMapping
+
+
+
 }

@@ -52,7 +52,17 @@ public class DiaryController {
     }
 
     //일기 삭제
-//    @DeleteMapping
+    @DeleteMapping("/{id}")
+    public ResponseEntity<DiaryResponse> deleteDiary(@PathVariable Long id, HttpSession session){
+        Long currentUserId = (Long) session.getAttribute("LoggedInUserId");
+        if (currentUserId == null){
+            throw new IllegalArgumentException("로그인 필요");
+        }
+
+        DiaryResponse deleteDiaryResponse = diaryService.deleteDairy(id, currentUserId);
+
+        return ResponseEntity.ok(deleteDiaryResponse);
+    }
 
 
 

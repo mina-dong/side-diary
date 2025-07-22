@@ -54,7 +54,7 @@ public class DiaryService {
             Diary diary = optionalDiary.get();
             DiaryResponse responseDto = convertToResponseDto(diary);
             return Optional.of(responseDto);
-        } else {
+        } else {gi
             // 5. 엔티티가 존재하지 않으면, 비어있는 Optional을 반환합니다.
             return Optional.empty();
         }
@@ -74,6 +74,21 @@ public class DiaryService {
         Diary updatedDiary = diaryRepository.save(diary);
 
         return convertToResponseDto(updatedDiary);  //수정 서비스랑 콘트롤러수저하기
+    }
+
+    //삭제
+    @Transactional
+    public DiaryResponse deleteDairy(Long id, Long currentUserId) {
+        Diary diary = diaryRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("아이디를 찾을 수 없습니다."));
+
+        if (diary.getUser().getId() != currentUserId) {
+            throw new IllegalArgumentException("삭제 권한이 없습니다.");
+        }
+
+        diaryRepository.delete(diary);
+
+        return convertToResponseDto(diary);
     }
 
     //dto -> diary 엔티티 변형

@@ -54,7 +54,7 @@ public class DiaryService {
             Diary diary = optionalDiary.get();
             DiaryResponse responseDto = convertToResponseDto(diary);
             return Optional.of(responseDto);
-        } else {gi
+        } else {
             // 5. 엔티티가 존재하지 않으면, 비어있는 Optional을 반환합니다.
             return Optional.empty();
         }

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { login } from "../api/auth";
 import { useNavigate } from 'react-router-dom'; // 1. Import useNavigate
+import { jwtDecode } from "jwt-decode";
 
 function Login(){
     const [email, setEmail] = useState('');
@@ -10,8 +11,12 @@ function Login(){
     const handleSubmit = async(e) =>{
         e.preventDefault();
         try{
-            const data = await login(email, password);
-            localStorage.setItem('token', data.token);
+            const token = await login(email, password);
+            //console.log(token); //디버깅용 
+            localStorage.setItem('authToken', token);
+            const decoded = jwtDecode(token);
+            // console.log('decoded:', decoded);  //디버깅용 
+            localStorage.setItem('userNickname', decoded.nickname);
             alert('로그인 성공');
             navigate('/');
         } catch(err){

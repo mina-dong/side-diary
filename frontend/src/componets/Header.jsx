@@ -3,6 +3,15 @@
 import React from 'react';
 
 const Header = ({ isLoggedIn, userNickname }) => {
+
+    // 로그아웃 함수: 토큰/닉네임 삭제 후 새로고침 또는 리다이렉트
+  const handleLogout = () => {
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('userNickname');
+    window.location.href = '/'; // 홈으로 이동(새로고침)
+  };
+
+
   return (
     <header className="main-header">
       <div className="header-container">
@@ -13,7 +22,9 @@ const Header = ({ isLoggedIn, userNickname }) => {
             {isLoggedIn ? (
                 <>
                 <li><span> 방가방가, {userNickname} 님!</span></li>
-                <li><a href='/logout'>로그아웃</a></li>
+                <li><button onClick={handleLogout} className="bg-transparent border-none text-blue-500 cursor-pointer">
+                    로그아웃
+                  </button></li>
                 </>
                 ) : (
                     <>

@@ -3,6 +3,8 @@ import { getDiaryList } from '../api/diary';
 
 import DiaryCard from '../componets/DiaryCard';
 import Header from '../componets/Header'; // Header 컴포넌트 불러오기
+
+
 // 더미데이터
 const dummyDiaries = [
   {
@@ -23,9 +25,8 @@ const dummyDiaries = [
 
 function Main() {
   const [diaries, setDiaries] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태 관리
-  const [userNickname, setUserNickname] = useState(''); // 사용자 닉네임 관리
-
+   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('authToken'));
+  const [userNickname, setUserNickname] = useState(localStorage.getItem('userNickname') || '');
     //회원로그인/헤더 관련
     useEffect(()=>{
       const token = localStorage.getItem('authToken');
@@ -41,7 +42,12 @@ function Main() {
       }
     }, []);
     //의존성 배열을 비워두면, 마운트 되는 순간 한번만 실행되며 초기설정에 적합함.
-
+  // 상태가 바뀔 때마다 값 확인
+  useEffect(() => {
+    console.log('isLoggedIn:', isLoggedIn);
+    console.log('userNickname:', userNickname);
+  }, [isLoggedIn, userNickname]);
+  
     useEffect(()=>{
         const fetchDiaries = async () => {
             try {

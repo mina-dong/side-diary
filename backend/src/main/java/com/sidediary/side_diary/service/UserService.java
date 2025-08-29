@@ -62,6 +62,6 @@ public class UserService {
         }
 
         // JWT 발급
-        return jwtUtil.generateToken(user.getEmail());
+        return jwtUtil.generateToken(user.getEmail(), user.getNickname());
     }
 }

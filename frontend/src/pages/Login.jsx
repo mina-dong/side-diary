@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { login } from "../api/auth";
+import { useNavigate } from 'react-router-dom'; // 1. Import useNavigate
 
 function Login(){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate(); // 2. Initialize the hook
 
     const handleSubmit = async(e) =>{
         e.preventDefault();
@@ -11,6 +13,7 @@ function Login(){
             const data = await login(email, password);
             localStorage.setItem('token', data.token);
             alert('로그인 성공');
+            navigate('/');
         } catch(err){
             alert('로그인 실패');
         }

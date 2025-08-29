@@ -5,7 +5,7 @@ import './App.css'
 
 import Login from './pages/Login';
 import Register from './pages/Resgister';
-import DiaryList from './pages/DiaryList';
+import Main from './pages/DiaryList';
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login/>} />
         <Route path="/register" element={<Register/>} />
-        <Route path="/diaries" element={<DiaryList/>} />
+        <Route path="/" element={<Main/>} />
       </Routes>
     </BrowserRouter>
   )

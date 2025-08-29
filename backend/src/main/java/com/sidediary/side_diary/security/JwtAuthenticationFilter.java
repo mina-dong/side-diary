@@ -29,6 +29,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
+        //디버그용
+        System.out.println(">>> JwtAuthenticationFilter - Request URI: " + request.getRequestURI()); // 이 로그가 찍히는지 확인
+        System.out.println(">>> JwtAuthenticationFilter - Authorization Header: " + request.getHeader("Authorization")); // 헤더도 찍히는지 확인
 
         String authHeader = request.getHeader("Authorization"); // Authorization 헤더에서 토큰 추출
 

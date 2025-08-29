@@ -7,6 +7,7 @@ import com.sidediary.side_diary.service.DiaryService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class DiaryController {
 
     //일기작성
     @PostMapping
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')") //EnableMethodSecurity - 시큐리티콘피그에 있음
     public ResponseEntity<String> createDiary(@RequestBody DiaryRequest request){
         diaryService.createDiary(request);
         return ResponseEntity.ok("일기 등록 성공");

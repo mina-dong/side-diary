@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/diaries")
+@RequestMapping("/api/diaries")
 @RequiredArgsConstructor
 public class DiaryController {
     private final DiaryService diaryService;

@@ -1,5 +1,8 @@
 package com.sidediary.side_diary.config;
 
+import com.sidediary.side_diary.repository.UserRepository;
+import com.sidediary.side_diary.security.JwtAuthenticationFilter;
+import com.sidediary.side_diary.security.JwtUtil;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +16,16 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 
 @Configuration
+@EnableWebSecurity
 public class SecurityConfig {
+    private final JwtUtil jwtUtil;
+    private final UserRepository userRepository;
+
+    public SecurityConfig(JwtUtil jwtUtil, UserRepository userRepository) {
+        this.jwtUtil = jwtUtil;
+        this.userRepository = userRepository;
+    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -30,6 +42,12 @@ public class SecurityConfig {
 
         return http.build();
     }
+
+    @Bean
+    public JwtAuthenticationFilter jwtAuthenticationFilter() {
+        return new JwtAuthenticationFilter(jwtUtil, userRepository);
+    }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {

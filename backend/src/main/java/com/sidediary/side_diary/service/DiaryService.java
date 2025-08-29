@@ -7,6 +7,8 @@ import com.sidediary.side_diary.entity.User;
 import com.sidediary.side_diary.repository.DiaryRepository;
 import com.sidediary.side_diary.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,7 +25,9 @@ public class DiaryService {
 
     //작성서비스
     public Diary createDiary(DiaryRequest request){
-        User user = userRepository.findById(1)
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getName();
+        User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("아이디를 찾을 수 없습니다."));
 
         Diary diary = Diary.builder()

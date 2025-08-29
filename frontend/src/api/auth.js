@@ -7,7 +7,7 @@ export const login = async (email, password) =>{
     return response.data //토큰
 }
 
-export const register = async (email, password, nickname) =>{
-    const response = await api.post('api/users/register', {email, password, nickname});
+export const register = async (email, password, nickname, invitationCode) =>{
+    const response = await api.post('api/users/register', {email, password, nickname, invitationCode});
     return response.data 
 }

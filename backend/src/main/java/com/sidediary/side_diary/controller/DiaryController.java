@@ -3,11 +3,13 @@ package com.sidediary.side_diary.controller;
 import com.sidediary.side_diary.dto.DiaryRequest;
 import com.sidediary.side_diary.dto.DiaryResponse;
 
+import com.sidediary.side_diary.entity.User;
 import com.sidediary.side_diary.service.DiaryService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,12 +44,20 @@ public class DiaryController {
     }
     //일기 수정
     @PutMapping("/{id}")
-    public ResponseEntity<DiaryResponse> editDiary(@PathVariable Long id, @RequestBody DiaryRequest request, HttpSession session){
-        Long currentUserId = (Long) session.getAttribute("LoggedInUserId");
-        if (currentUserId == null){
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+    public ResponseEntity<DiaryResponse> editDiary(@PathVariable Long id,
+                                                   @RequestBody DiaryRequest request,
+                                                   @AuthenticationPrincipal User user  // [변경] JWT 필터에서 SecurityContext에 저장한 User 객체
+                                                   )
+    {
+       // @AuthenticationPrincipal이 null을 반환할 경우, 이는 인증이 실패했음을 의미합니다.
+       // 하지만 스프링 시큐리티가 이미 처리했기 때문에 이 if문은 필요 없을 수도 있습니다.
+       // 그래도 방어적으로 코드를 추가하는 것은 좋습니다.
+        if (user == null) {
             throw new IllegalArgumentException("로그인 필요");
         }
 
+        Long currentUserId = user.getId(); // [추가] User 엔티티에서 id 가져오기
         DiaryResponse updatedDiaryResponse = diaryService.editDairy(id, request, currentUserId);
 
         return ResponseEntity.ok(updatedDiaryResponse);

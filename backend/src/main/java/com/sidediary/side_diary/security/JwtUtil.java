@@ -30,12 +30,13 @@ public class JwtUtil {
     }
 
     // JWT 생성 (이메일, 닉네임, 역할 포함)
-    public String generateToken(String email, String nickname, String role) { // role 파라미터 추가
+    public String generateToken(Long id, String email, String nickname, String role) { // role 파라미터 추가
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + EXPIRATION_TIME);
 
         return Jwts.builder()
                 .setSubject(email) // 토큰의 주체 (여기서는 사용자 이메일)
+                .claim("id", id)             // [수정] payload에 ID 추가
                 .claim("nickname", nickname)    // payload에 닉네임 추가
                 .claim("role", role)            // payload에 역할(role) 추가 (필수)
                 .setIssuedAt(now)               // 발행 시간

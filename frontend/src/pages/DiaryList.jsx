@@ -3,7 +3,7 @@ import { getDiaryList } from '../api/diary';
 
 import DiaryCard from '../componets/DiaryCard';
 import Header from '../componets/Header'; // Header 컴포넌트 불러오기
-
+import WriteModal from './WriteModal';
 
 // 더미데이터
 const dummyDiaries = [
@@ -25,29 +25,39 @@ const dummyDiaries = [
 
 function Main() {
   const [diaries, setDiaries] = useState([]);
-   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('authToken'));
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('authToken'));
   const [userNickname, setUserNickname] = useState(localStorage.getItem('userNickname') || '');
+  const [currentUserId, setCurrentUserId] = useState(null);
+
+  //일기편집관련
+  const [editModal, setEditModal] = useState(false); 
+  const [selectedDiary, setSelectedDiary] = useState(null);
+
     //회원로그인/헤더 관련
     useEffect(()=>{
       const token = localStorage.getItem('authToken');
       const nickname = localStorage.getItem('userNickname');
+      const userId = localStorage.getItem('userId');
 
       //토큰이 존재?
       if (token) {
         setIsLoggedIn(true);
         setUserNickname(nickname);
+        setCurrentUserId(Number(userId));
       } else {
         setIsLoggedIn(false);
         setUserNickname('');
+        setCurrentUserId(null);
       }
-    }, []);
+    }, [isLoggedIn]); // isLoggedIn을 의존성 배열에 추가하여 로그인 상태 변경 시 다시 실행
     //의존성 배열을 비워두면, 마운트 되는 순간 한번만 실행되며 초기설정에 적합함.
   
     // 상태가 바뀔 때마다 값 확인 - 디버그용 로그인 여부 / 닉네임 콘솔 출력
   useEffect(() => {
     console.log('isLoggedIn:', isLoggedIn);
     console.log('userNickname:', userNickname);
-  }, [isLoggedIn, userNickname]);
+    console.log('currentUserId:', currentUserId);
+  }, [isLoggedIn, userNickname, currentUserId]);
   
   const fetchDiaries = async () => {
     try {
@@ -66,8 +76,13 @@ function Main() {
     useEffect(()=>{
         fetchDiaries();
     }, [])
+  
+    //편집관련
+  const handleEdit = (diary) => {
+    setSelectedDiary(diary);
+    setEditModal(true);
+  };
 
-    
 
   return (
     <>
@@ -76,9 +91,18 @@ function Main() {
         {diaries.length === 0 ? 
          (<p className='text-center text-gray-500'> 작성된 다이어리 없음</p>) 
         :
-        (diaries.map((diary)=> <DiaryCard key={diary.id} diary={diary}/>))}
+        (diaries.map((diary)=> <DiaryCard key={diary.id} diary={diary} currentUserId={currentUserId} onEdit={handleEdit} />))}
 
     </div>
+      {/* 수정 모달 */}
+      {editModal && (
+        <WriteModal 
+          diaryToEdit={selectedDiary} //[추가]
+          onClose={() => setEditModal(false)} 
+          onSuccess={fetchDiaries}
+        />
+      )}
+
     </>
   )
 }

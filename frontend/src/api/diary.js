@@ -11,6 +11,11 @@ export const postDiary = async (data)=>{
     return response.data
 }
 
+export const putDiary = async (id, data)=>{
+    const config = getAuthHeaders();
+    const response = await api.put(`/api/diaries/${id}`, data, config);
+    return response.data
+}
 
 /**
  * JWT 토큰을 localStorage에서 가져와 Authorization 헤더를 포함한 axios 요청 설정을 반환합니다.

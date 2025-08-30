@@ -65,6 +65,7 @@ public class DiaryService {
     }
 
     //수정
+    @Transactional // 을 추가하면, 메서드가 성공적으로 완료될 때 JPA가 자동으로 UPDATE 쿼리를 실행하고 DB에 변경사항을 저장합니다.
     public DiaryResponse editDairy(Long id, DiaryRequest request, Long currentUserId) {
         Diary diary = diaryRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("아이디를 찾을 수 없습니다."));
@@ -101,10 +102,12 @@ public class DiaryService {
             return null;
         }
         return DiaryResponse.builder()
+                .id(diary.getId())
                 .title(diary.getTitle())
                 .content(diary.getContent())
+                .userId(diary.getUser() != null ? diary.getUser().getId() : null)
+                .userNickname(diary.getUser() != null ? diary.getUser().getNickname() : null)
                 .createAt(diary.getCreateAt())
-                .nickname(diary.getUser() != null ? diary.getUser().getNickname() : null)
                 .build();
     }
 

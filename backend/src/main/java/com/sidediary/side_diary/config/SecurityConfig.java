@@ -46,6 +46,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         // 회원가입과 로그인 경로는 인증 없이 접근을 허용합니다.
                         .requestMatchers("/api/users/register", "/api/users/login").permitAll()
+                        // GET /api/diaries는 인증 없이 접근을 허용합니다.
+                        .requestMatchers(HttpMethod.GET, "/api/diaries").permitAll()
                         // 글쓰기 API (예시: /api/posts에 POST 요청)는 ROLE_USER 또는 ROLE_ADMIN 권한이 필요
                         .requestMatchers(HttpMethod.POST, "/api/diaries").hasAnyRole("USER", "ADMIN")
                         // 그 외 모든 요청은 인증된 사용자만 접근할 수 있도록 합니다.

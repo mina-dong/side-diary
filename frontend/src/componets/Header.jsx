@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import WriteModal from '../pages/WriteModal';
 
-const Header = ({ isLoggedIn, userNickname }) => {
+const Header = ({ isLoggedIn, userNickname,  fetchDiaries}) => {
   const [showModal, setShowModal] = useState(false);
     // 로그아웃 함수: 토큰/닉네임 삭제 후 새로고침 또는 리다이렉트
   const handleLogout = () => {
@@ -40,7 +40,9 @@ const Header = ({ isLoggedIn, userNickname }) => {
 
           </ul>
         </nav>
-            {showModal && <WriteModal onClose={() => setShowModal(false)} />}
+            {showModal && <WriteModal 
+              onClose={() => setShowModal(false)} 
+              onSuccess={fetchDiaries} />}
       </div>
     </header>
   );

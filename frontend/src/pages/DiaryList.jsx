@@ -42,26 +42,28 @@ function Main() {
       }
     }, []);
     //의존성 배열을 비워두면, 마운트 되는 순간 한번만 실행되며 초기설정에 적합함.
-  // 상태가 바뀔 때마다 값 확인
+  
+    // 상태가 바뀔 때마다 값 확인 - 디버그용 로그인 여부 / 닉네임 콘솔 출력
   useEffect(() => {
     console.log('isLoggedIn:', isLoggedIn);
     console.log('userNickname:', userNickname);
   }, [isLoggedIn, userNickname]);
   
-    useEffect(()=>{
-        const fetchDiaries = async () => {
-            try {
-                const useDummy = true; // api인지 더미인지 선택
+  const fetchDiaries = async () => {
+    try {
+        const useDummy = false; // api인지 더미인지 선택
 
-                if(useDummy) {setDiaries(dummyDiaries);}
-                else{
-                const data = await getDiaryList();
-                setDiaries(data);
-                }
-            }catch (err) {
-                alert('다이어리 목록 실패')
-            }
-        };
+        if(useDummy) {setDiaries(dummyDiaries);}
+        else{
+        const data = await getDiaryList();
+        setDiaries(data);
+        }
+    }catch (err) {
+        alert('다이어리 목록 실패')
+    }
+  };
+        
+    useEffect(()=>{
         fetchDiaries();
     }, [])
 
@@ -69,7 +71,7 @@ function Main() {
 
   return (
     <>
-    <Header isLoggedIn={isLoggedIn} userNickname={userNickname} />
+    <Header isLoggedIn={isLoggedIn} userNickname={userNickname}  fetchDiaries={fetchDiaries}/>
     <div className='max-w-3xl mx-auto mt-6'>
         {diaries.length === 0 ? 
          (<p className='text-center text-gray-500'> 작성된 다이어리 없음</p>) 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { postDiary } from "../api/diary";
 
-const WriteModal = ({ onClose}) => {
+const WriteModal = ({ onClose, onSuccess}) => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
 
@@ -10,6 +10,7 @@ const WriteModal = ({ onClose}) => {
         try {
         await postDiary({ title, content });
         alert('일기 등록 성공');
+        if (onSuccess) onSuccess(); // 작성 성공 시 목록 갱신 호출
         onClose();
         } catch (err) {
         alert('일기 등록 실패');

@@ -9,9 +9,12 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -65,15 +68,21 @@ public class DiaryController {
 
     //일기 삭제
     @DeleteMapping("/{id}")
-    public ResponseEntity<DiaryResponse> deleteDiary(@PathVariable Long id, HttpSession session){
-        Long currentUserId = (Long) session.getAttribute("LoggedInUserId");
-        if (currentUserId == null){
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+    public ResponseEntity<DiaryResponse> deleteDiary(@PathVariable Long id,
+                                                     @AuthenticationPrincipal User user,
+                                                     Authentication authentication){
+
+        if (user == null){
             throw new IllegalArgumentException("로그인 필요");
         }
 
-        DiaryResponse deleteDiaryResponse = diaryService.deleteDairy(id, currentUserId);
+        Long currentUserId = user.getId();
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities(); //현재 로그인된 사용자의 역할(Role) 목록을 가져오는 코드
+        // 서비스 계층으로 권한 정보와 함께 전달
+        diaryService.deleteDairy(id, currentUserId, authorities);
 
-        return ResponseEntity.ok(deleteDiaryResponse);
+        return ResponseEntity.noContent().build();
     }
 
 

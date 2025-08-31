@@ -1,4 +1,4 @@
-export default function DiaryCard({ diary, onEdit, currentUserId }) {
+export default function DiaryCard({ diary, onEdit, onDelete, currentUserId }) {
   //현재 일기가 로그인한 사용자와 일치하는지 여부
       // [디버깅 코드] console.log() 추가
     // console.log("-------------------");
@@ -23,6 +23,15 @@ export default function DiaryCard({ diary, onEdit, currentUserId }) {
             수정
           </button>
         )}
+
+
+        
+          <button
+            onClick={() => onDelete(diary)}
+            className="ml-4 px-3 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
+          >
+            삭제
+          </button>
       </div>
       
     </div>

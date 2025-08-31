@@ -8,13 +8,14 @@ import com.sidediary.side_diary.repository.DiaryRepository;
 import com.sidediary.side_diary.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -83,17 +84,23 @@ public class DiaryService {
 
     //삭제
     @Transactional
-    public DiaryResponse deleteDairy(Long id, Long currentUserId) {
+    public void deleteDairy(Long id,
+                                     Long currentUserId,
+                                     Collection<? extends GrantedAuthority> authorities) {
+
         Diary diary = diaryRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("아이디를 찾을 수 없습니다."));
 
-        if (diary.getUser().getId() != currentUserId) {
+        //관리자권한확인
+        boolean isAdmin = authorities.stream().anyMatch(a->a.getAuthority().equals("ROLE_ADMIN"));
+
+        //관리자아니면서 본인 글 아닐때만 예외처리
+        if (!isAdmin && !Objects.equals(diary.getUser().getId(), currentUserId)) {
             throw new IllegalArgumentException("삭제 권한이 없습니다.");
         }
 
+        //삭제진행
         diaryRepository.delete(diary);
-
-        return convertToResponseDto(diary);
     }
 
     //dto -> diary 엔티티 변형

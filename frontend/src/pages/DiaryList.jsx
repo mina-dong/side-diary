@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getDiaryList } from '../api/diary';
+import { deleteDiary, getDiaryList } from '../api/diary';
 
 import DiaryCard from '../componets/DiaryCard';
 import Header from '../componets/Header'; // Header 컴포넌트 불러오기
@@ -82,7 +82,19 @@ function Main() {
     setSelectedDiary(diary);
     setEditModal(true);
   };
-
+  
+  const handleDelete = async(diary) => {
+    if(window.confirm("정말 일기 삭제?")){
+      try{
+        await deleteDiary(diary.id);
+        alert("삭제완료");
+        fetchDiaries();
+      } catch(err){
+        alert("삭제 실패");
+      }
+    }
+    
+  };
 
   return (
     <>
@@ -91,7 +103,7 @@ function Main() {
         {diaries.length === 0 ? 
          (<p className='text-center text-gray-500'> 작성된 다이어리 없음</p>) 
         :
-        (diaries.map((diary)=> <DiaryCard key={diary.id} diary={diary} currentUserId={currentUserId} onEdit={handleEdit} />))}
+        (diaries.map((diary)=> <DiaryCard key={diary.id} diary={diary} currentUserId={currentUserId} onEdit={handleEdit} onDelete={handleDelete}/>))}
 
     </div>
       {/* 수정 모달 */}

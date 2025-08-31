@@ -31,8 +31,11 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password;
 
-    @Column(length = 30)
+    @Column(length = 20)
     private String nickname;
+
+    @Column(length = 20)
+    private String invitationCode;
 
     @Enumerated(EnumType.STRING) // Enum 타입을 DB에 문자열("USER", "ADMIN" 등)로 저장
     @Column(nullable = false)

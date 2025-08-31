@@ -23,8 +23,13 @@ public class Diary {
     @ManyToOne
     private User user;
 
+    @Column(length = 30)
     private String title;
+
+    @Column(length = 200)
     private String content;
+
+    private String background;
     private LocalDateTime createAt;
 
     @PrePersist

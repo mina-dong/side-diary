@@ -5,7 +5,6 @@ import com.sidediary.side_diary.dto.DiaryResponse;
 
 import com.sidediary.side_diary.entity.User;
 import com.sidediary.side_diary.service.DiaryService;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

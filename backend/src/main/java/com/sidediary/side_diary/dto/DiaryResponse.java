@@ -16,5 +16,6 @@ public class DiaryResponse {
     private Long userId;
     private String userNickname;
     private LocalDateTime createAt;
+    private String background;
 }
 

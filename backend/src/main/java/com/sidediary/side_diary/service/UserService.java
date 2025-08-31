@@ -40,6 +40,7 @@ public class UserService {
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword())) // 암호화 적용
                 .nickname(request.getNickname())
+                .role(User.UserRole.USER) // <--- 여기서 기본 역할(USER)을 지정합니다.
                 .build();
 
         return userRepository.save(user);
@@ -62,6 +63,6 @@ public class UserService {
         }
 
         // JWT 발급
-        return jwtUtil.generateToken(user.getEmail(), user.getNickname());
+        return jwtUtil.generateToken(user.getId(), user.getEmail(), user.getNickname(), user.getRole().name());
     }
 }

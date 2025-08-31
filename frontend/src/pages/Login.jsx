@@ -12,11 +12,12 @@ function Login(){
         e.preventDefault();
         try{
             const token = await login(email, password);
-            //console.log(token); //디버깅용 
+            // console.log(token); //디버깅용 
             localStorage.setItem('authToken', token);
             const decoded = jwtDecode(token);
-            // console.log('decoded:', decoded);  //디버깅용 
+            // console.log('decoded:', decoded.id);  //디버깅용
             localStorage.setItem('userNickname', decoded.nickname);
+            localStorage.setItem('userId', decoded.id);
             alert('로그인 성공');
             navigate('/');
         } catch(err){

@@ -10,8 +10,11 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class DiaryResponse {
+    private Long id;
     private String title;
     private String content;
-    private String nickname;
+    private Long userId;
+    private String userNickname;
     private LocalDateTime createAt;
 }
+

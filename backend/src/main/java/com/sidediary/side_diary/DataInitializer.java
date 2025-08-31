@@ -45,14 +45,14 @@ public class DataInitializer implements CommandLineRunner {
                         .title("첫 번째 다이어리")
                         .content("자동으로 생성된 첫 번째 다이어리 내용입니다.")
                         .user(adminUser)
-                        .background("blue")
+                        .background(Diary.Color.BLUE)
                         .build();
 
                 Diary diary2 = Diary.builder()
                         .title("두 번째 다이어리")
                         .content("두 번째 다이어리 내용입니다.")
                         .user(adminUser)
-                        .background("red")
+                        .background(Diary.Color.RED)
                         .build();
 
                 diaryRepository.saveAll(List.of(diary1, diary2));

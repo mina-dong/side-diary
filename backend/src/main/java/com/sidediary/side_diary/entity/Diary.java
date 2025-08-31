@@ -29,11 +29,18 @@ public class Diary {
     @Column(length = 200)
     private String content;
 
-    private String background;
+    @Enumerated(EnumType.STRING) // DB에 문자열로 저장
+    @Column(length = 10)
+    private Color background;
+
     private LocalDateTime createAt;
 
     @PrePersist
     public void prePersist(){
         this.createAt = LocalDateTime.now();
+    }
+
+    public enum Color {
+        RED, YELLOW, GREEN, BLUE, PURPLE
     }
 }

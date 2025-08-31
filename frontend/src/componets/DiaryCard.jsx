@@ -8,8 +8,16 @@ export default function DiaryCard({ diary, onEdit, onDelete, currentUserId }) {
 
   const isMyDiary = diary.userId === Number(currentUserId);
 
+  const backgroundClass = diary.background ? `bg-${diary.background.toLowerCase()}-100` : '';
+  const cardClassName = `border rounded-xl p-6 shadow-lg mb-6 transform hover:scale-105 transition-transform duration-300 ease-in-out ${backgroundClass}`;
+
+  // 디버깅을 위한 콘솔 로그
+  console.log("Diary ID:", diary.id);
+  console.log("Diary Background Value:", diary.background);
+  console.log("Generated Background Class:", backgroundClass);
+
   return (
-    <div className="border rounded-md p-4 shadow-md mb-4">
+    <div className={cardClassName}>
       <h3 className="text-xl font-semibold mb-2">{diary.title}</h3>
       <p className="mb-2">{diary.content}</p>
       <div className="text-sm text-gray-500">
@@ -23,8 +31,6 @@ export default function DiaryCard({ diary, onEdit, onDelete, currentUserId }) {
             수정
           </button>
         )}
-
-
         
           <button
             onClick={() => onDelete(diary)}

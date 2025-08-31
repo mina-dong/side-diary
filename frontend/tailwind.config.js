@@ -7,6 +7,19 @@ export default {
   theme: {
     extend: {},
   },
+  //tailwind는 동적 안되서 이렇게 설정을 해야한다...
+   safelist: [
+        'bg-red-100',
+        'bg-yellow-100',
+        'bg-green-100',
+        'bg-blue-100',
+        'bg-purple-100',
+        'bg-red-200',
+        'bg-yellow-200',
+        'bg-green-200',
+        'bg-blue-200',
+        'bg-purple-200',
+    ],
   plugins: [],
 }
 

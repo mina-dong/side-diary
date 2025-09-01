@@ -67,7 +67,7 @@ export default function DiaryCard({ diary, onEdit, onDelete, currentUserId }) {
           x
         </button>
 
-        <h3 className={`text-xl font-semibold mb-2 break-words text-left ${colorSet.title}`}>
+        <h3 className={`font-handwriting text-xl font-semibold mb-2 break-words text-left ${colorSet.title}`}>
           {diary.title}
         </h3>
         

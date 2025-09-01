@@ -1,3 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    font-family: 'KkuBulLim';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/BMkkubulimTTF-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sweet';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Light.woff2') format('woff2');
+    font-weight: 400;
+    font-display: swap;
+}
+
+/* 기본 폰트 설정 */
+body {
+  font-family: 'Sweet', sans-serif;
+  background-color: #FFFBEB; /* Tailwind bg-yellow-100 색상값 */
+}
+
+.font-handwriting {
+  font-family: 'KkuBulLim', sans-serif;
+}

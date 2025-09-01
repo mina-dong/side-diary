@@ -35,7 +35,7 @@ const Header = ({ isLoggedIn, userNickname, fetchDiaries }) => {
   return (
     <header className="main-header">
       <div className="header-container ">
-        <h1 className='text-2xl font-bold text-cyan-800'>나의 일기장</h1>
+        <h1 className='text-5xl font-bold text-cyan-800 font-handwriting'>방명록</h1>
 
         <nav >
           <ul class="flex flex-col items-center space-x-4 mb-8">

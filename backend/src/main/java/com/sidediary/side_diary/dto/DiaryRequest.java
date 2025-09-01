@@ -15,4 +15,5 @@ import lombok.Builder;
 public class DiaryRequest {
     private String title;
     private String content;
+    private String background;
 }

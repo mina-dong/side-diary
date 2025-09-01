@@ -40,6 +40,7 @@ public class UserService {
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword())) // 암호화 적용
                 .nickname(request.getNickname())
+                .invitationCode(request.getInvitationCode())
                 .role(User.UserRole.USER) // <--- 여기서 기본 역할(USER)을 지정합니다.
                 .build();
 

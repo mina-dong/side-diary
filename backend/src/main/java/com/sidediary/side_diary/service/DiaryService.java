@@ -34,6 +34,7 @@ public class DiaryService {
         Diary diary = Diary.builder()
                 .title(request.getTitle())
                 .content(request.getContent())
+                .background(Diary.Color.valueOf(request.getBackground().toUpperCase())) // [수정] String을 Enum으로 변환
                 .user(user)
                 .build();
 
@@ -76,6 +77,7 @@ public class DiaryService {
         }
         diary.setTitle(request.getTitle());
         diary.setContent(request.getContent());
+        diary.setBackground(Diary.Color.valueOf(request.getBackground().toUpperCase())); //[수정] String을 Enum으로 변환
 
         Diary updatedDiary = diaryRepository.save(diary);
 
@@ -115,6 +117,7 @@ public class DiaryService {
                 .userId(diary.getUser() != null ? diary.getUser().getId() : null)
                 .userNickname(diary.getUser() != null ? diary.getUser().getNickname() : null)
                 .createAt(diary.getCreateAt())
+                .background(diary.getBackground() != null ? diary.getBackground().name() : null) // enum -> String
                 .build();
     }
 

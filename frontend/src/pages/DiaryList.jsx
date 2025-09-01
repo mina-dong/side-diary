@@ -99,12 +99,14 @@ function Main() {
   return (
     <>
     <Header isLoggedIn={isLoggedIn} userNickname={userNickname}  fetchDiaries={fetchDiaries}/>
-    <div className='max-w-3xl mx-auto mt-6'>
-        {diaries.length === 0 ? 
-         (<p className='text-center text-gray-500'> 작성된 다이어리 없음</p>) 
-        :
-        (diaries.map((diary)=> <DiaryCard key={diary.id} diary={diary} currentUserId={currentUserId} onEdit={handleEdit} onDelete={handleDelete}/>))}
+    <div className="flex justify-center">
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
+          {diaries.length === 0 ? 
+          (<p className='text-center text-gray-500'> 작성된 다이어리 없음</p>) 
+          :
+          (diaries.map((diary)=> <DiaryCard key={diary.id} diary={diary} currentUserId={currentUserId} onEdit={handleEdit} onDelete={handleDelete}/>))}
 
+      </div>
     </div>
       {/* 수정 모달 */}
       {editModal && (

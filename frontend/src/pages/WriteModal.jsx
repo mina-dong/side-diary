@@ -21,17 +21,17 @@
                 if (diaryToEdit) {
                 //[추가] 수정 모드 → PUT 요청
                 await putDiary(diaryToEdit.id, { title, content, background });
-                alert('일기 수정 성공');
+                alert('포스트잇 수정 성공');
                 } else {
                 //[기존] 작성 모드 → POST 요청
                 await postDiary({ title, content, background });
-                alert('일기 등록 성공');
+                alert('포스트잇 등록 성공');
                 }
 
                 if (onSuccess) onSuccess();
                 onClose();
             } catch (err) {
-                alert(diaryToEdit ? '일기 수정 실패' : '일기 등록 실패');
+                alert(diaryToEdit ? '포스트잇 수정 실패' : '포스트잇 등록 실패');
             }
           };
         const colors = [
@@ -45,12 +45,12 @@
       return (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded shadow-lg min-w-[300px]">
-            <h2 className="text-lg font-bold mb-4"> {diaryToEdit ? "글 수정" : "글 작성"} </h2>
+            <h2 className="text-lg font-bold mb-4 text-orange-800/80"> {diaryToEdit ? "글 다듬기" : "글 남기기"} </h2>
             <form onSubmit={handleSubmit}>
               
-              <input type="text" placeholder="제목"  value={title} onChange={e => setTitle(e.target.value)} className="border p-2 w-full mb-2" />
+              <input type="text" placeholder="제목"  value={title} onChange={e => setTitle(e.target.value)} className="border rounded-xl p-2 focus:outline-none focus:ring-2 focus:ring-gray-200 w-full mb-2" />
 
-              <textarea placeholder="내용" value={content} onChange={e => setContent(e.target.value)} className="border p-2 w-full mb-2" />
+              <textarea placeholder="내용" value={content} onChange={e => setContent(e.target.value)} className="border rounded-xl p-2 w-full mb-2 focus:outline-none focus:ring-2 focus:ring-gray-200" />
 
               <div className="flex justify-around mb-4">
                 {colors.map(color => (
@@ -63,15 +63,15 @@
                             onChange={e => setBackground(e.target.value)}
                             className="hidden"
                         />
-                        <div className={`w-8 h-8 rounded-full border-2 ${background === color.value ? 'ring-4 ring-offset-2 ring-gray-400' : ''} bg-${color.value}-300`}></div>
-                        <span className="text-xs mt-1 text-gray-600">{color.label}</span>
+                        <div className={`w-4 h-4 rounded-full border-2 ${background === color.value ? 'ring-2 ring-offset-2 ring-gray-200' : ''} bg-${color.value.toLowerCase()}-100`}></div>
+                        <span className="text-xs mt-1 text-gray-800">{color.label}</span>
                     </label>
                 ))}
             </div>
 
               <div className="flex justify-end gap-2">
-                <button type="button" onClick={onClose} className="p-2 bg-gray-300 rounded">닫기</button>
-                <button type="submit" className="p-2 bg-blue-500 text-white rounded">{diaryToEdit ? "수정" : "작성"}</button>
+                <button type="button" onClick={onClose} className="p-2 bg-gray-200 rounded-full">닫기</button>
+                <button type="submit" className="p-2 bg-orange-400 text-white rounded-full hover:bg-orange-600">{diaryToEdit ? "수정" : "작성"}</button>
               </div>
             </form>
           </div>

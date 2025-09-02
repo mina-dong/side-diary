@@ -5,24 +5,6 @@ import DiaryCard from '../componets/DiaryCard';
 import Header from '../componets/Header'; // Header 컴포넌트 불러오기
 import WriteModal from './WriteModal';
 
-// // 더미데이터
-// const dummyDiaries = [
-//   {
-//     id: 1,
-//     title: "첫 번째 일기",
-//     content: "오늘은 날씨가 좋았다.",
-//     nickname: "민아",
-//     createAt: "2025-07-29T12:00:00"
-//   },
-//   {
-//     id: 2,
-//     title: "두 번째 일기",
-//     content: "리액트 공부 중!",
-//     nickname: "민아",
-//     createAt: "2025-07-28T15:30:00"
-//   }
-// ];
-
 function Main() {
   const [diaries, setDiaries] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('authToken'));
@@ -61,13 +43,8 @@ function Main() {
 
   const fetchDiaries = async () => {
     try {
-      const useDummy = false; // api인지 더미인지 선택
-
-      if (useDummy) { setDiaries(dummyDiaries); }
-      else {
         const data = await getDiaryList();
         setDiaries(data);
-      }
     } catch (err) {
       alert('다이어리 목록 실패')
     }

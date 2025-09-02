@@ -23,10 +23,10 @@ public class Diary {
     @ManyToOne
     private User user;
 
-    @Column(length = 30)
+    @Column(length = 10)
     private String title;
 
-    @Column(length = 200)
+    @Column(length = 150)
     private String content;
 
     @Enumerated(EnumType.STRING) // DB에 문자열로 저장

@@ -30,7 +30,8 @@ return(
       type="text"
       value={nickname}
       onChange={e => setNickname(e.target.value)}
-      placeholder="닉네임"
+      placeholder="닉네임 (10자 이내)"
+      maxLength={10}
       className="mb-4 border border-orange-200 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-300 placeholder-orange-400"
     />
 

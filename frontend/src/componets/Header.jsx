@@ -54,6 +54,7 @@ const Header = ({ isLoggedIn, userNickname, fetchDiaries }) => {
                 </button>
 
                   <button onClick={handleLogout} className={buttonClass}>
+                    {/* <!-- License: MIT. Made by halfmage: https://github.com/halfmage/pixelarticons --> */}
                     <svg className='h-4 w-4' viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M5 3h16v4h-2V5H5v14h14v-2h2v4H3V3h2zm16 8h-2V9h-2V7h-2v2h2v2H7v2h10v2h-2v2h2v-2h2v-2h2v-2z" fill="#000000" />
                     </svg>
@@ -61,6 +62,7 @@ const Header = ({ isLoggedIn, userNickname, fetchDiaries }) => {
 
 
                   <button onClick={handleFortune} className={buttonClass}>
+                     {/* <!-- License: MIT. Made by halfmage: https://github.com/halfmage/pixelarticons --> */}
                     <svg className='h-4 w-4' viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M3 3h16v2H5v14h14v2H3V3zm18 0h-2v18h2V3zM11 15h2v2h-2v-2zm2-8h-2v6h2V7z" fill="#000000" />
                     </svg>
@@ -72,12 +74,14 @@ const Header = ({ isLoggedIn, userNickname, fetchDiaries }) => {
             ) : (
               <ul className="flex space-x-2 mt-6">
                 <li ><a className={buttonClass} href='/login'>
+                  {/* <!-- License: MIT. Made by halfmage: https://github.com/halfmage/pixelarticons --> */}
                   <svg className='h-4 w-4' viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M5 3H3v4h2V5h14v14H5v-2H3v4h18V3H5zm12 8h-2V9h-2V7h-2v2h2v2H3v2h10v2h-2v2h2v-2h2v-2h2v-2z" fill="#000000" />
                   </svg></a></li>
 
 
                 <li><a className={buttonClass} href="/register">
+                   {/* <!-- License: MIT. Made by halfmage: https://github.com/halfmage/pixelarticons --> */}
                   <svg className='h-4 w-4' viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M18 2h-6v2h-2v6h2V4h6V2zm0 8h-6v2h6v-2zm0-6h2v6h-2V4zM7 16h2v-2h12v2H9v4h12v-4h2v6H7v-6zM3 8h2v2h2v2H5v2H3v-2H1v-2h2V8z" fill="#000000" />
                   </svg></a></li>

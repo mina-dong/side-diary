@@ -52,15 +52,17 @@ const WriteModal = ({ onClose, onSuccess, diaryToEdit }) => {
         <form onSubmit={handleSubmit} className="flex flex-col gap-3">
           <input
             type="text"
-            placeholder="제목"
+            placeholder="제목 (10자 이내)"
             value={title}
+            maxLength={10}
             onChange={e => setTitle(e.target.value)}
             className="border border-orange-200 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-300 w-full"
           />
 
           <textarea
-            placeholder="내용"
+            placeholder="내용 (150자 이내)"
             value={content}
+            maxLength={150}
             onChange={e => setContent(e.target.value)}
             className="border border-orange-200 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-300 w-full min-h-[100px]"
           />

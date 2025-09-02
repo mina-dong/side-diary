@@ -119,6 +119,23 @@ function Main() {
 
       <footer className="text-center mt-16 text-sm text-gray-300 break-words">
         이 페이지에는 꾸불림체(우아한형제들), 스위트(SUNN YOUN)가 적용되어 있습니다 <br/>
+        아이콘 출처: 
+  <a
+    href="https://github.com/halfmage/pixelarticons"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="hover:underline"
+  >
+    halfmage (MIT)
+  </a>,{' '}
+  <a
+    href="https://dribbble.com/Dooder"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="hover:underline"
+  >
+    Dooder (CC Attribution)
+  </a> <br/>
         © 2025{' '}
         <a
           href="https://github.com/mina-dong"

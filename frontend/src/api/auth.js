@@ -8,6 +8,6 @@ export const login = async (email, password) =>{
 }
 
 export const register = async (email, password, nickname, invitationCode) =>{
-    const response = await api.post('api/users/register', {email, password, nickname, invitationCode});
+    const response = await api.post('/api/users/register', {email, password, nickname, invitationCode});
     return response.data 
 }

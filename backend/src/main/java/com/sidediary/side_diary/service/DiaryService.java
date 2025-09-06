@@ -25,6 +25,7 @@ public class DiaryService {
     private final UserRepository userRepository;
 
     //작성서비스
+    @Transactional
     public Diary createDiary(DiaryRequest request){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();

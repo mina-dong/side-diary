@@ -6,6 +6,7 @@ import Register from './pages/Resgister';
 import Main from './pages/DiaryList';
 
 function App() {
+  // console.log("API URL:", import.meta.env.VITE_APP_API_URL)
   return (
     <BrowserRouter>
       <Routes>
